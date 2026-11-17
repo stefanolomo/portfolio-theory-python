@@ -1,6 +1,7 @@
 import yfinance as yf
 import numpy as np
 import time
+from scipy.optimize import minimize
 
 assets = ["AAPL", "XOM", "JPM", "TLT", "GLD"]
 rfr = 0.0512  # Risk-free rate (5.12% annualized)
@@ -90,3 +91,51 @@ print('\nBest portfolio weights:')
 for asset, weight in zip(assets, best_portfolio):
 	print(f'{asset}: {weight * 100:.2f}%')
 print(f'Time taken: {end_time - start_time:.2f} seconds')
+
+# Gradient ascent method
+
+# Objective function
+
+def negative_sharpe_ratio(weights, expected_returns, cov_matrix, rfr):
+	portfolio_return = np.dot(weights, expected_returns)
+	portfolio_variance = weights.T @ cov_matrix @ weights
+	portfolio_risk = np.sqrt(portfolio_variance)
+	return -(portfolio_return - rfr) / portfolio_risk  # Negative for minimization
+
+# Restrictions: weights must sum to 1 and be non-negative
+
+constraints = ({'type': 'eq', 'fun': lambda x: np.sum(x) - 1})
+
+start_time = time.time()
+
+# lower bounds for weights (no short selling)
+bounds = tuple((0, 1) for _ in range(len(assets)))
+
+# Initial guess for weights (equal distribution)
+
+initial_weights = np.array([1/len(assets)] * len(assets))
+
+print('\nOptimizing portfolio using gradient ascent method...')
+
+result = minimize(negative_sharpe_ratio, initial_weights, args=(expected_returns, cov_matrix, rfr), method='SLSQP', bounds=bounds, constraints=constraints)
+
+end_time = time.time()
+
+# Results
+
+weights_optimal = result.x
+returns_optimal = np.dot(weights_optimal, expected_returns)
+variance_optimal = weights_optimal.T @ cov_matrix @ weights_optimal
+risk_optimal = np.sqrt(variance_optimal)
+sharpe_ratio_optimal = (returns_optimal - rfr) / risk_optimal
+
+print(f'\nOptimal portfolio found using gradient ascent method:')
+print(f'Expected return: {returns_optimal * 100:.2f}% anual')
+print(f'Risk (volatility): {risk_optimal * 100:.2f}%')
+print(f'Sharpe Ratio: {sharpe_ratio_optimal:.2f}')
+
+print('\nOptimal portfolio weights:')
+for asset, weight in zip(assets, weights_optimal):
+	print(f'{asset}: {weight * 100:.2f}%')
+
+print(f'Time taken for optimization: {result.nit} iterations, {result.nfev} function evaluations, {end_time - start_time:.2f} seconds')
