@@ -24,7 +24,7 @@ Se divide en tres fases de comprobacion secuencial
 Calculo del rendimiento volatilidad y ratio de sharpe asumientdo una asignacion del 100% a cada activo individualmente.
 
 2. Simulacion de Montecarlo
-Generacion de un espacio de soluciones de n portafolios aleatorios mediante operaciones tensoriales  permitiendo compras, ventas en corto y apalancamiento con pesos negativos.
+Generacion de un espacio de soluciones de n portafolios aleatorios mediante operaciones tensoriales  permitiendo solamente compras.
 
 3. Optimizacion analitica
 Uso de algebra lineal para encontrar la cartera tangente exacta de la forma determinista y compararla con el optimo estocastico.
