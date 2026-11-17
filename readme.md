@@ -24,10 +24,16 @@ Se divide en tres fases de comprobacion secuencial
 Calculo del rendimiento volatilidad y ratio de sharpe asumientdo una asignacion del 100% a cada activo individualmente.
 
 2. Simulacion de Montecarlo
-Generacion de un espacio de soluciones de n portafolios aleatorios mediante operaciones tensoriales  permitiendo solamente compras.
+Generacion de un espacio de soluciones de n portafolios aleatorios mediante operaciones tensoriales permitiendo solamente compras.
 
 3. Optimizacion analitica
-Uso de algebra lineal para encontrar la cartera tangente exacta de la forma determinista y compararla con el optimo estocastico.
+
+	3.1 Ascenso de gradiente
+	Uso de geometria diferencial via ascenso del gradiente para hallar maximos atado a las restricciones (solo se permiten compras, los pesos suman 100%) 
+
+	3.2 Forma cerrada de cartera tangente (Con ventas en corto permitidas)
+	Forma cerrada de la cartera optima, solamente atada a la restriccion que los pesos sumen 100%. 
+	$$\mathbf{w}_T = \frac{\boldsymbol{\Sigma}^{-1} (\boldsymbol{\mu} - r_f \mathbf{1})}{\mathbf{1}^T \boldsymbol{\Sigma}^{-1} (\boldsymbol{\mu} - r_f \mathbf{1})}$$
 
 ## Resulados
 
@@ -50,3 +56,15 @@ JPM ssp ex. returns: 18.99% anual - risk: 27.59% - Sharpe Ratio: 0.00
 TLT ssp ex. returns: 3.83% anual - risk: 15.10% - Sharpe Ratio: -0.30
 GLD ssp ex. returns: 10.33% anual - risk: 24.86% - Sharpe Ratio: -0.10
 
+### Portafolio hallado con Montecarlo
+
+Retorno esperado: 18.64% anual
+Volatilidad: 15.77%
+Sharpe Ratio: 0.86
+
+Mejores pesos:
+AAPL: 44.94%
+XOM: 25.56%
+JPM: 18.46%
+TLT: 11.03%
+GLD: 0.00%
