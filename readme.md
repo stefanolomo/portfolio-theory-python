@@ -88,5 +88,22 @@ $$
 | **TLT** | 11.03% |
 | **GLD** | 0.00% |
 
+Tiempo empleado: 19 segundos
+
 ### 4.4. Portafolio hallado con metodo ascenso gradiente
 
+| Métrica | Valor |
+| :--- | :--- |
+| **Retorno esperado** | 18.64% anual |
+| **Volatilidad** | 15.77% |
+| **Sharpe Ratio** | 0.86 |
+
+| Activo | Peso |
+| :--- | :--- |
+| **AAPL** | 44.94% |
+| **XOM** | 25.56% |
+| **JPM** | 18.46% |
+| **TLT** | 11.03% |
+| **GLD** | 0.00% |
+
+Tiempo empleado: 8 iteraciones, 48 evaluaciones de función, 0.01 segundos
