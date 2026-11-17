@@ -10,7 +10,7 @@ rfr = 0.0512  # Risk-free rate (5.12% annualized)
 # Download data
 print('Downloading data...')
 raw_data = yf.download(assets, start='2010-01-01', end='2026-01-01')
-prices = raw_data['Close']
+prices = raw_data['Close'][assets]
 prices = prices.dropna()
 
 returns = prices.pct_change()
@@ -19,10 +19,12 @@ returns = returns.dropna()
 # Covariance matrix
 
 cov_matrix = returns.cov() * 252
+cov_matrix = cov_matrix.to_numpy()
 
 # Single stock portfolios (ssp) (anti hipotesis)
 
 expected_returns = returns.mean() * 252 # 252 operating days in a year
+expected_returns = expected_returns.to_numpy()
 
 ssp_weights = np.eye(len(assets))
 
