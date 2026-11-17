@@ -14,6 +14,8 @@ XOM: Energia
 TLT: Bonos del tesoro
 GLD: Oro
 
+Se toma un risk free rate de 5.1% anual, al dia de 17/11/2026.
+
 Fuentes de datos: precios de cierre ajustados (Adj Close)
 
 ## 3. Metodologia
@@ -37,12 +39,16 @@ Entonces n=10^8
 
 3.3. Optimizacion analitica
 
-	3.3.1 Ascenso de gradiente
-	Uso de geometria diferencial via ascenso del gradiente para hallar maximos atado a las restricciones (solo se permiten compras, los pesos suman 100%) 
+3.3.1 Ascenso de gradiente
+Uso de geometria diferencial via ascenso del gradiente para hallar maximos atado a las restricciones (solo se permiten compras, los pesos suman 100%) 
 
-	3.3.2 Forma cerrada de cartera tangente (Con ventas en corto permitidas)
-	Forma cerrada de la cartera optima, solamente atada a la restriccion que los pesos sumen 100%. 
-	$$\mathbf{w}_T = \frac{\boldsymbol{\Sigma}^{-1} (\boldsymbol{\mu} - r_f \mathbf{1})}{\mathbf{1}^T \boldsymbol{\Sigma}^{-1} (\boldsymbol{\mu} - r_f \mathbf{1})}$$
+3.3.2 Forma cerrada de cartera tangente (Con ventas en corto permitidas)
+Forma cerrada de la cartera optima, solamente atada a la restriccion que los pesos sumen 100%:
+	
+$$
+\mathbf{w}_T = \frac{\boldsymbol{\Sigma}^{-1} (\boldsymbol{\mu} - r_f \mathbf{1})}{\mathbf{1}^T \boldsymbol{\Sigma}^{-1} (\boldsymbol{\mu} - r_f \mathbf{1})}
+$$
+
 
 ## 4. Resulados
 
@@ -58,25 +64,29 @@ Entonces n=10^8
 
 ### 4.2. Portfolios SSP
 
-Single stock portfolios: 5
-AAPL ssp ex. returns: 27.44% anual - risk: 28.17% - Sharpe Ratio: 0.09
-XOM ssp ex. returns: 9.30% anual - risk: 15.82% - Sharpe Ratio: -0.23
-JPM ssp ex. returns: 18.99% anual - risk: 27.59% - Sharpe Ratio: 0.00
-TLT ssp ex. returns: 3.83% anual - risk: 15.10% - Sharpe Ratio: -0.30
-GLD ssp ex. returns: 10.33% anual - risk: 24.86% - Sharpe Ratio: -0.10
+| Portfolio | Expected Returns (Anual) | Risk (Riesgo) | Sharpe Ratio |
+| :--- | :--- | :--- | :--- |
+| **AAPL** | 27.44% | 28.17% | 0.09 |
+| **XOM** | 9.30% | 15.82% | -0.23 |
+| **JPM** | 18.99% | 27.59% | 0.00 |
+| **TLT** | 3.83% | 15.10% | -0.30 |
+| **GLD** | 10.33% | 24.86% | -0.10 |
 
 ### 4.3. Portafolio hallado con Montecarlo
 
-Retorno esperado: 18.64% anual
-Volatilidad: 15.77%
-Sharpe Ratio: 0.86
+| Métrica | Valor |
+| :--- | :--- |
+| **Retorno esperado** | 18.64% anual |
+| **Volatilidad** | 15.77% |
+| **Sharpe Ratio** | 0.86 |
 
-Mejores pesos:
-AAPL: 44.94%
-XOM: 25.56%
-JPM: 18.46%
-TLT: 11.03%
-GLD: 0.00%
+| Activo | Peso |
+| :--- | :--- |
+| **AAPL** | 44.94% |
+| **XOM** | 25.56% |
+| **JPM** | 18.46% |
+| **TLT** | 11.03% |
+| **GLD** | 0.00% |
 
 ### 4.4. Portafolio hallado con metodo ascenso gradiente
 
