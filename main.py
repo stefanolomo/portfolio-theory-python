@@ -17,18 +17,19 @@ returns = returns.dropna()
 
 cov_matrix = returns.cov() * 252
 
-# Single stock portfolios (stp) (anti hipotesis)
+# Single stock portfolios (ssp) (anti hipotesis)
 
 expected_returns = returns.mean() * 252 # 252 operating days in a year
 
-stp_weights = np.eye(len(assets))
+ssp_weights = np.eye(len(assets))
 
 for i in range(len(assets)):
-	weight = stp_weights[i]
+	weight = ssp_weights[i]
 	asset = assets[i]
 	expected_return = np.dot(weight, expected_returns)
 	variance = weight.T @ cov_matrix @ weight
 	risk = np.sqrt(variance)
-	print(f'{asset} STP ex. returns: {expected_return * 100:.2f}% anual - risk: {risk * 100:.2f}%')
+	sharpe_ratio = (expected_return - 0.0512 / risk) if risk != 0 else 0
+	print(f'{asset} ssp ex. returns: {expected_return * 100:.2f}% anual - risk: {risk * 100:.2f}% - Sharpe Ratio: {sharpe_ratio:.2f}')
 
 print(f'Single stock portfolios: {len(assets)}')
